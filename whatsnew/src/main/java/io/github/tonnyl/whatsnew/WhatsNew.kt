@@ -49,6 +49,13 @@ class WhatsNew : DialogFragment() {
             bundle.putParcelableArray(ARGUMENT, items)
             return WhatsNew().apply { arguments = bundle }
         }
+
+        @JvmStatic
+        fun newInstance(items: List<WhatsNewItem>): WhatsNew {
+            val bundle = Bundle()
+            bundle.putParcelableArray(ARGUMENT, items.toTypedArray())
+            return WhatsNew().apply { arguments = bundle }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
