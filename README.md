@@ -52,7 +52,7 @@ WhatsNew.newInstance(
  or with DSL style code
 
 ```kotlin
-    val whatsnew  =whatsNew {
+    val whatsnew = whatsNew {
         item {
             title = "Nice Icons"
             content = "Completely customize colors, texts and icons."
