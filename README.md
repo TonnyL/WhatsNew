@@ -49,22 +49,22 @@ WhatsNew.newInstance(
 ).presentAutomatically(this@MainActivity)
 ```
 
- or with DSL style code
+or with DSL style code
 
 ```kotlin
-    val whatsnew = whatsNew {
-        item {
-            title = "Nice Icons"
-            content = "Completely customize colors, texts and icons."
-            imageRes = R.drawable.ic_heart
-        }
-        item {
-            title = "Such Easy"
-            content = "Setting this up only takes 2 lines of code, impressive you say?"
-            imageRes = R.drawable.ic_thumb_up
-        }
+val whatsnew = whatsNew {
+    item {
+        title = "Nice Icons"
+        content = "Completely customize colors, texts and icons."
+        imageRes = R.drawable.ic_heart
     }
-    whatsnew.presentAutomatically(this)
+    item {
+        title = "Such Easy"
+        content = "Setting this up only takes 2 lines of code, impressive you say?"
+        imageRes = R.drawable.ic_thumb_up
+    }
+}
+whatsnew.presentAutomatically(this)
 ```
 + Java:
 

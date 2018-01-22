@@ -3,15 +3,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.novoda.bintray-release'
 
+def configuration = rootProject.ext.configuration
+def libraries = rootProject.ext.libraries
+
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    compileSdkVersion configuration.compileSdkVersion
+    buildToolsVersion configuration.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion configuration.libMinSdkVersion
+        targetSdkVersion configuration.targetSdkVersion
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -37,12 +38,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation "com.android.support:recyclerview-v7:27.0.2"
+    implementation "com.android.support:appcompat-v7:${libraries.supportLibraryVersion}"
+    implementation "com.android.support:recyclerview-v7:${libraries.supportLibraryVersion}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation "com.android.support.test:runner:${libraries.androidTestRunnerRulesVersion}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:${libraries.espressoVersion}"
 }
 
 repositories {

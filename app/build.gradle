@@ -2,14 +2,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def configuration = rootProject.ext.configuration
+def libraries = rootProject.ext.libraries
+
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    compileSdkVersion configuration.compileSdkVersion
+    buildToolsVersion configuration.buildToolsVersion
 
     defaultConfig {
         applicationId "io.github.tonnyl.sample"
-        minSdkVersion 16
-        targetSdkVersion 27
+        minSdkVersion configuration.appMinSdkVersion
+        targetSdkVersion configuration.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -30,9 +33,11 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':whatsnew')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation "com.android.support:appcompat-v7:${libraries.supportLibraryVersion}"
+
+    testImplementation "junit:junit:${libraries.junitVersion}"
+    androidTestImplementation "com.android.support.test:runner:${libraries.androidTestRunnerRulesVersion}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:${libraries.espressoVersion}"
 }
