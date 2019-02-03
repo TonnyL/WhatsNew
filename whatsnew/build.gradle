@@ -7,8 +7,8 @@ def configuration = rootProject.ext.configuration
 def libraries = rootProject.ext.libraries
 
 android {
-    compileSdkVersion configuration.compileSdkVersion
-    buildToolsVersion configuration.buildToolsVersion
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion configuration.libMinSdkVersion
@@ -36,12 +36,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${libraries.supportLibraryVersion}"
     implementation "com.android.support:recyclerview-v7:${libraries.supportLibraryVersion}"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     androidTestImplementation "com.android.support.test:runner:${libraries.androidTestRunnerRulesVersion}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${libraries.espressoVersion}"
 }
