@@ -1,21 +1,21 @@
 package io.github.tonnyl.whatsnew
 
 import android.graphics.Color
+import androidx.core.content.ContextCompat
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import androidx.core.content.ContextCompat
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
+import io.github.tonnyl.whatsnew.test.R
 import io.github.tonnyl.whatsnew.util.PresentationOption
 import org.hamcrest.core.Is.`is`
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import io.github.tonnyl.whatsnew.test.R
 
 /**
  * Android test cases for [WhatsNew].
