@@ -6,8 +6,8 @@ def configuration = rootProject.ext.configuration
 def libraries = rootProject.ext.libraries
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion configuration.compileSdkVersion
+    buildToolsVersion configuration.buildToolsVersion
 
     defaultConfig {
         applicationId "io.github.tonnyl.sample"

@@ -28,8 +28,8 @@ ext {
 
     // Sdk and tools
     configuration = [
-            compileSdkVersion: 27,
-            targetSdkVersion : 27,
+            compileSdkVersion: 28,
+            targetSdkVersion : 28,
             appMinSdkVersion : 23,
             libMinSdkVersion : 16,
             buildToolsVersion: '28.0.3'
@@ -38,8 +38,8 @@ ext {
     // App dependencies
     libraries = [
             junitVersion                 : '4.12',
-            espressoVersion              : '3.1.0-alpha4',
-            androidTestRunnerRulesVersion: '1.1.0-alpha4'
+            espressoVersion              : '3.1.1',
+            androidTestRunnerRulesVersion: '1.1.1'
     ]
 
 }
