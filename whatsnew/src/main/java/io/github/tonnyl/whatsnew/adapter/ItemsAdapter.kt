@@ -19,7 +19,7 @@ class ItemsAdapter(private val mData: Array<WhatsNewItem>, private val mContext:
     var titleColor: Int = Color.parseColor("#000000")
     var contentColor: Int = Color.parseColor("#808080")
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position <= mData.size) {
             with(holder as ItemViewHolder) {
                 with(itemView) {
@@ -35,7 +35,7 @@ class ItemsAdapter(private val mData: Array<WhatsNewItem>, private val mContext:
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item, parent, false))
     }
 
