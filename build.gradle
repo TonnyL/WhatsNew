@@ -37,7 +37,6 @@ ext {
 
     // App dependencies
     libraries = [
-            supportLibraryVersion        : '1.0.0-beta01',
             junitVersion                 : '4.12',
             espressoVersion              : '3.1.0-alpha4',
             androidTestRunnerRulesVersion: '1.1.0-alpha4'
