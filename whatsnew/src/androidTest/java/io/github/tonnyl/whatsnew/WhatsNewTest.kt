@@ -5,9 +5,9 @@ import androidx.core.content.ContextCompat
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import io.github.tonnyl.whatsnew.test.R
 import io.github.tonnyl.whatsnew.util.PresentationOption
