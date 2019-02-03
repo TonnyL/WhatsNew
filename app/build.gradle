@@ -34,7 +34,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':whatsnew')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:${libraries.supportLibraryVersion}"
+    implementation "androidx.appcompat:appcompat:1.0.2"
     testImplementation "junit:junit:${libraries.junitVersion}"
     androidTestImplementation "androidx.test:runner:${libraries.androidTestRunnerRulesVersion}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${libraries.espressoVersion}"

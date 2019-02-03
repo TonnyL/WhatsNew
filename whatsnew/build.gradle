@@ -37,11 +37,12 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:${libraries.supportLibraryVersion}"
-    implementation "androidx.recyclerview:recyclerview:${libraries.supportLibraryVersion}"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     androidTestImplementation "androidx.test:runner:${libraries.androidTestRunnerRulesVersion}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${libraries.espressoVersion}"
+    androidTestImplementation 'androidx.test:rules:1.1.1'
 }
 
 repositories {
@@ -60,7 +61,7 @@ publish {
     userOrg = 'tonnyl'
     groupId = 'io.github.tonnyl'
     artifactId = 'whatsnew'
-    publishVersion = '0.1.1'
+    publishVersion = '0.1.2'
     desc = 'WhatsNew automatically displays a short description of the new features when users update your app.'
     website = 'https://github.com/TonnyL/WhatsNew'
 }
