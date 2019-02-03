@@ -20,6 +20,8 @@
         <activity
             android:name=".AnotherActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".BackgroundColorActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

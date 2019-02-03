@@ -3,13 +3,13 @@ package io.github.tonnyl.whatsnew
 import android.graphics.Color
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.github.tonnyl.whatsnew.adapter.ItemsAdapter
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import io.github.tonnyl.whatsnew.util.PresentationOption
@@ -26,6 +26,8 @@ class WhatsNew : DialogFragment() {
     var titleColor: Int = Color.parseColor("#000000")
     var itemTitleColor: Int? = null
     var itemContentColor: Int? = null
+    var iconColor: Int? = null
+    var backgroundColorResource: Int = android.R.color.white
     var buttonBackground: Int = Color.parseColor("#000000")
     var buttonText: String = "Continue"
     var buttonTextColor: Int = Color.parseColor("#FFEB3B")
@@ -33,11 +35,10 @@ class WhatsNew : DialogFragment() {
     private val TAG = "WhatsNew"
 
     companion object {
-        @JvmField
-        val ARGUMENT = "argument"
+        const val ARGUMENT = "argument"
 
-        private val LAST_VERSION_CODE = "LAST_VERSION_CODE"
-        private val LAST_VERSION_NAME = "LAST_VERSION_NAME"
+        private const val LAST_VERSION_CODE = "LAST_VERSION_CODE"
+        private const val LAST_VERSION_NAME = "LAST_VERSION_NAME"
 
         @JvmStatic
         fun newInstance(vararg items: WhatsNewItem): WhatsNew {
@@ -73,8 +74,9 @@ class WhatsNew : DialogFragment() {
             if (mItems != null && context != null) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = ItemsAdapter(mItems!!, context!!).apply {
-                    itemContentColor?.let { this.contentColor = it }
-                    itemTitleColor?.let { this.titleColor = it }
+                    this@WhatsNew.itemContentColor?.let { this@apply.contentColor = it }
+                    this@WhatsNew.itemTitleColor?.let { this@apply.titleColor = it }
+                    this@WhatsNew.iconColor?.let { this@apply.iconColor = it }
                 }
             }
         }
@@ -88,8 +90,8 @@ class WhatsNew : DialogFragment() {
         }
 
         // Make the dialog fullscreen.
-        val window = dialog.window
-        window.setBackgroundDrawableResource(android.R.color.white)
+        val window = dialog.window ?: return view
+        window.setBackgroundDrawableResource(backgroundColorResource)
         window.decorView.setPadding(0, 0, 0, 0)
         with(window.attributes) {
             gravity = Gravity.BOTTOM
