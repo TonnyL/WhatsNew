@@ -7,8 +7,8 @@ def configuration = rootProject.ext.configuration
 def libraries = rootProject.ext.libraries
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion configuration.compileSdkVersion
+    buildToolsVersion configuration.buildToolsVersion
 
     defaultConfig {
         minSdkVersion configuration.libMinSdkVersion
@@ -42,7 +42,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     androidTestImplementation "androidx.test:runner:${libraries.androidTestRunnerRulesVersion}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${libraries.espressoVersion}"
-    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation "androidx.test:rules:${libraries.androidTestRunnerRulesVersion}"
 }
 
 repositories {
