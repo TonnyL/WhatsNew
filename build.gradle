@@ -37,9 +37,11 @@ ext {
 
     // App dependencies
     libraries = [
-            junitVersion                 : '4.12',
+            junitVersion                 : '1.1.0',
             espressoVersion              : '3.1.1',
-            androidTestRunnerRulesVersion: '1.1.1'
+            androidTestRunnerRulesVersion: '1.1.1',
+            androidxAppcompatVersion     : '1.0.2',
+            androidxRecyclerViewVersion  : '1.0.0',
     ]
 
 }
