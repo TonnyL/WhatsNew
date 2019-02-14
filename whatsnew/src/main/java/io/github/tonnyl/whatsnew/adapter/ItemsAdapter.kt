@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import io.github.tonnyl.whatsnew.R
@@ -26,7 +26,7 @@ class ItemsAdapter(private val mData: Array<WhatsNewItem>, private val mContext:
             with(holder as ItemViewHolder) {
                 with(itemView) {
                     mData[position].imageRes?.let {
-                        ContextCompat.getDrawable(mContext, it)?.let { drawable ->
+                        AppCompatResources.getDrawable(mContext, it)?.let { drawable ->
                             DrawableCompat.setTint(drawable, iconColor)
                             itemTitleTextView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
                         }
