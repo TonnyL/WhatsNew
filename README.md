@@ -10,15 +10,7 @@
 
 ## Download
 ### Gradle
-+ Add the JitPack repository to your root build.gradle file:
-
-```gradle
-repositories {
-    maven { url "https://jitpack.io" }
-}
-```
-
-+ Add the code to your **module**'s build.gradle file:
+Add the code to your **module**'s build.gradle file:
 
 ```gradle
 dependencies {
@@ -45,7 +37,7 @@ WhatsNew.newInstance(
     WhatsNewItem("Nice Icons", "Completely customize colors, texts and icons.", R.drawable.ic_heart),
     WhatsNewItem("Such Easy", "Setting this up only takes 2 lines of code, impressive you say?", R.drawable.ic_thumb_up),
     WhatsNewItem("Very Sleep", "It helps you get more sleep by writing less code.", R.drawable.ic_satisfied_face),
-    WhatsNewItem("Text Only", "No icons? Just go with plain text.")
+    WhatsNewItem("Text Only", "No icons? Just go with plain text.", WhatsNewItem.NO_IMAGE_RES_ID)
 ).presentAutomatically(this@MainActivity)
 ```
 
@@ -73,7 +65,7 @@ WhatsNew.newInstance(
     new WhatsNewItem("Nice Icons", "Completely customize colors, texts and icons.", R.drawable.ic_heart),
     new WhatsNewItem("Such Easy", "Setting this up only takes 2 lines of code, impressive you say?", R.drawable.ic_thumb_up),
     new WhatsNewItem("Very Sleep", "It helps you get more sleep by writing less code.", R.drawable.ic_satisfied_face),
-    new WhatsNewItem("Text Only", "No icons? Just go with plain text.")
+    new WhatsNewItem("Text Only", "No icons? Just go with plain text.", WhatsNewItem.NO_IMAGE_RES_ID)
 ).presentAutomatically(AnotherActivity.this);
 ```
 
@@ -85,7 +77,7 @@ val whatsnew = WhatsNew.newInstance(
       WhatsNewItem("Nice Icons", "Completely customize colors, texts and icons.", R.drawable.ic_heart),
       WhatsNewItem("Such Easy", "Setting this up only takes 2 lines of code, impressive you say?", R.drawable.ic_thumb_up),
       WhatsNewItem("Very Sleep", "It helps you get more sleep by writing less code.", R.drawable.ic_satisfied_face),
-      WhatsNewItem("Text Only", "No icons? Just go with plain text."))
+      WhatsNewItem("Text Only", "No icons? Just go with plain text.", WhatsNewItem.NO_IMAGE_RES_ID))
 
       with(whatsnew) {
         presentationOption = PresentationOption.DEBUG
@@ -110,7 +102,7 @@ WhatsNew whatsNew = WhatsNew.newInstance(
     new WhatsNewItem("Nice Icons", "Completely customize colors, texts and icons.", R.drawable.ic_heart),
     new WhatsNewItem("Such Easy", "Setting this up only takes 2 lines of code, impressive you say?", R.drawable.ic_thumb_up),
     new WhatsNewItem("Very Sleep", "It helps you get more sleep by writing less code.", R.drawable.ic_satisfied_face),
-    new WhatsNewItem("Text Only", "No icons? Just go with plain text."));
+    new WhatsNewItem("Text Only", "No icons? Just go with plain text.", WhatsNewItem.NO_IMAGE_RES_ID));
 
     whatsNew.setPresentationOption(PresentationOption.DEBUG);
 
