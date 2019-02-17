@@ -96,11 +96,11 @@ class WhatsNewTest {
                 WhatsNewItem("Nice Icons", "Completely customize colors, texts and icons.", R.drawable.ic_heart),
                 WhatsNewItem("Such Easy", "Setting this up only takes 2 lines of code, impressive you say?", R.drawable.ic_thumb_up),
                 WhatsNewItem("Very Sleep", "It helps you get more sleep by writing less code.", R.drawable.ic_satisfied_face),
-                WhatsNewItem("Text Only", "No icons? Just go with plain text."))
+                WhatsNewItem("Text Only", "No icons? Just go with plain text.", WhatsNewItem.NO_IMAGE_RES_ID))
 
         // In fact, WhatsNew is just a dialog fragment.
         // All the instances are passed by bundle.
-        Assert.assertNull(whatsNew.mItems)
+        Assert.assertNotNull(whatsNew.mItems)
 
         whatsNew.presentationOption = PresentationOption.DEBUG
         whatsNew.presentAutomatically(activityRule.activity)
@@ -111,21 +111,21 @@ class WhatsNewTest {
             e.printStackTrace()
         }
 
-        Assert.assertThat(whatsNew.mItems!![0].title, `is`("Nice Icons"))
-        Assert.assertThat(whatsNew.mItems!![0].content, `is`("Completely customize colors, texts and icons."))
-        Assert.assertThat(whatsNew.mItems!![0].imageRes, `is`(R.drawable.ic_heart))
+        Assert.assertThat(whatsNew.mItems[0].title, `is`("Nice Icons"))
+        Assert.assertThat(whatsNew.mItems[0].content, `is`("Completely customize colors, texts and icons."))
+        Assert.assertThat(whatsNew.mItems[0].imageRes, `is`(R.drawable.ic_heart))
 
-        Assert.assertThat(whatsNew.mItems!![1].title, `is`("Such Easy"))
-        Assert.assertThat(whatsNew.mItems!![1].content, `is`("Setting this up only takes 2 lines of code, impressive you say?"))
-        Assert.assertThat(whatsNew.mItems!![1].imageRes, `is`(R.drawable.ic_thumb_up))
+        Assert.assertThat(whatsNew.mItems[1].title, `is`("Such Easy"))
+        Assert.assertThat(whatsNew.mItems[1].content, `is`("Setting this up only takes 2 lines of code, impressive you say?"))
+        Assert.assertThat(whatsNew.mItems[1].imageRes, `is`(R.drawable.ic_thumb_up))
 
-        Assert.assertThat(whatsNew.mItems!![2].title, `is`("Very Sleep"))
-        Assert.assertThat(whatsNew.mItems!![2].content, `is`("It helps you get more sleep by writing less code."))
-        Assert.assertThat(whatsNew.mItems!![2].imageRes, `is`(R.drawable.ic_satisfied_face))
+        Assert.assertThat(whatsNew.mItems[2].title, `is`("Very Sleep"))
+        Assert.assertThat(whatsNew.mItems[2].content, `is`("It helps you get more sleep by writing less code."))
+        Assert.assertThat(whatsNew.mItems[2].imageRes, `is`(R.drawable.ic_satisfied_face))
 
-        Assert.assertThat(whatsNew.mItems!![3].title, `is`("Text Only"))
-        Assert.assertThat(whatsNew.mItems!![3].content, `is`("No icons? Just go with plain text."))
-        Assert.assertNull(whatsNew.mItems!![3].imageRes)
+        Assert.assertThat(whatsNew.mItems[3].title, `is`("Text Only"))
+        Assert.assertThat(whatsNew.mItems[3].content, `is`("No icons? Just go with plain text."))
+        Assert.assertEquals(whatsNew.mItems[3].imageRes, 0)
     }
 
     @Test

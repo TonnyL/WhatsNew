@@ -4,23 +4,25 @@ import android.graphics.Color
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.*
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import io.github.tonnyl.whatsnew.adapter.ItemsAdapter
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import io.github.tonnyl.whatsnew.util.PresentationOption
-
+import kotlinx.android.synthetic.main.whatsnew_main.*
 
 /**
  * Created by lizhaotailang on 30/11/2017.
  */
 class WhatsNew : DialogFragment() {
 
-    var mItems: Array<WhatsNewItem>? = null
+    val mItems: ArrayList<WhatsNewItem> by lazy {
+        val args = requireNotNull(arguments) {
+            "arguments must not be null"
+        }
+        args.getParcelableArrayList<WhatsNewItem>(ARGUMENT)
+    }
     var presentationOption: PresentationOption = PresentationOption.IF_NEEDED
     var titleText: CharSequence = "What's New"
     var titleColor: Int = Color.parseColor("#000000")
@@ -32,57 +34,54 @@ class WhatsNew : DialogFragment() {
     var buttonText: String = "Continue"
     var buttonTextColor: Int = Color.parseColor("#FFEB3B")
 
-    private val TAG = "WhatsNew"
-
     companion object {
+
+        const val TAG = "WhatsNew"
+
         const val ARGUMENT = "argument"
 
         private const val LAST_VERSION_CODE = "LAST_VERSION_CODE"
         private const val LAST_VERSION_NAME = "LAST_VERSION_NAME"
 
         @JvmStatic
-        fun newInstance(vararg items: WhatsNewItem): WhatsNew {
-            val bundle = Bundle()
-            bundle.putParcelableArray(ARGUMENT, items)
-            return WhatsNew().apply { arguments = bundle }
-        }
+        fun newInstance(vararg items: WhatsNewItem): WhatsNew = this.newInstance(items.toList())
 
         @JvmStatic
         fun newInstance(items: List<WhatsNewItem>): WhatsNew {
-            val bundle = Bundle()
-            bundle.putParcelableArray(ARGUMENT, items.toTypedArray())
+            val list = ArrayList<WhatsNewItem>()
+            list.addAll(items)
+
+            val bundle = Bundle().apply {
+                putParcelableArrayList(ARGUMENT, list)
+            }
+
             return WhatsNew().apply { arguments = bundle }
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let { mItems = it.getParcelableArray(ARGUMENT) as Array<WhatsNewItem>? }
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.whatsnew_main, container, false)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.whatsnew_main, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // The title text view.
-        with(view.findViewById<TextView>(R.id.titleTextView)) {
+        with(titleTextView) {
             text = titleText
             setTextColor(titleColor)
         }
 
         // The recycler view.
-        with(view.findViewById<RecyclerView>(R.id.itemsRecyclerView)) {
-            if (mItems != null && context != null) {
-                layoutManager = LinearLayoutManager(context)
-                adapter = ItemsAdapter(mItems!!, context!!).apply {
-                    this@WhatsNew.itemContentColor?.let { this@apply.contentColor = it }
-                    this@WhatsNew.itemTitleColor?.let { this@apply.titleColor = it }
-                    this@WhatsNew.iconColor?.let { this@apply.iconColor = it }
-                }
+        with(itemsRecyclerView) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = ItemsAdapter(mItems, requireContext()).apply {
+                this@WhatsNew.itemContentColor?.let { this@apply.contentColor = it }
+                this@WhatsNew.itemTitleColor?.let { this@apply.titleColor = it }
+                this@WhatsNew.iconColor?.let { this@apply.iconColor = it }
             }
         }
 
         // The button.
-        with(view.findViewById<Button>(R.id.button)) {
+        with(button) {
             text = buttonText
             setTextColor(buttonTextColor)
             setBackgroundColor(buttonBackground)
@@ -90,7 +89,7 @@ class WhatsNew : DialogFragment() {
         }
 
         // Make the dialog fullscreen.
-        val window = dialog.window ?: return view
+        val window = dialog.window ?: return
         window.setBackgroundDrawableResource(backgroundColorResource)
         window.decorView.setPadding(0, 0, 0, 0)
         with(window.attributes) {
@@ -101,8 +100,6 @@ class WhatsNew : DialogFragment() {
 
         // Animate.
         window.setWindowAnimations(R.style.WhatsNewDialogAnimation)
-
-        return view
     }
 
     fun presentAutomatically(activity: AppCompatActivity) {
@@ -118,7 +115,7 @@ class WhatsNew : DialogFragment() {
                 // Obtain the last version code from sp.
                 val lastVersionCode = PreferenceManager.getDefaultSharedPreferences(activity)
                         .getInt(LAST_VERSION_CODE, 0)
-                var nowVersionCode = 0
+                var nowVersionCode: Int
 
                 var lastFirstNumOfVersionName = 0
                 var nowFirstNumOfVersionName = 0
@@ -126,7 +123,7 @@ class WhatsNew : DialogFragment() {
                 var nowSecondNumOfVersionName = 0
 
                 try {
-                    var tmp = ""
+                    var tmp: String
                     activity.packageManager
                             .getPackageInfo(activity.packageName, 0)
                             .let {
@@ -148,9 +145,10 @@ class WhatsNew : DialogFragment() {
                             }
 
                     // Obtain the first two numbers of last version name.
-                    PreferenceManager.getDefaultSharedPreferences(activity)
-                            .getString(LAST_VERSION_NAME, "")
-                            .split("\\.".toRegex())
+                    val versionName = PreferenceManager.getDefaultSharedPreferences(activity)
+                            .getString(LAST_VERSION_NAME, "") ?: return
+
+                    versionName.split("\\.".toRegex())
                             .filter { !it.isEmpty() && !it.isBlank() }
                             .apply {
                                 if (size >= 1) {
@@ -175,7 +173,7 @@ class WhatsNew : DialogFragment() {
                         }
                     } else { // presentationOption == PresentationOption.IF_NEEDED
                         if (((nowFirstNumOfVersionName >= 0 && nowFirstNumOfVersionName > lastFirstNumOfVersionName)
-                                || (nowSecondNumOfVersionName >= 0 && nowSecondNumOfVersionName > lastSecondNumOfVersionName))
+                                        || (nowSecondNumOfVersionName >= 0 && nowSecondNumOfVersionName > lastSecondNumOfVersionName))
                                 && (nowVersionCode >= 0 && lastVersionCode >= 0 && nowVersionCode > lastVersionCode)) {
 
                             // Show the dialog.

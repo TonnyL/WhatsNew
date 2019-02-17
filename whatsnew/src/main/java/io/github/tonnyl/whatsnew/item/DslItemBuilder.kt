@@ -1,7 +1,6 @@
 package io.github.tonnyl.whatsnew.item
 
 import android.graphics.Color
-import androidx.annotation.DrawableRes
 import io.github.tonnyl.whatsnew.WhatsNew
 import io.github.tonnyl.whatsnew.util.PresentationOption
 
@@ -41,8 +40,7 @@ fun WhatNewsBuilder.item(init: WhatsNewItemBuilder.() -> Unit) {
 class WhatsNewItemBuilder {
     var title: String = ""
     var content: String = ""
-    @DrawableRes
-    var imageRes: Int? = null
+    var imageRes: Int = 0
 
     fun build(): WhatsNewItem {
         return WhatsNewItem(title, content, imageRes)
