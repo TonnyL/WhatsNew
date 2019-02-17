@@ -1,39 +1,24 @@
 package io.github.tonnyl.whatsnew.item
 
-import android.os.Parcel
 import android.os.Parcelable
-import androidx.annotation.DrawableRes
+import kotlinx.android.parcel.Parcelize
 
 /**
- * Created by lizhaotailang on 30/11/2017.
+ * @param title Item title.
+ * @param content Item description.
+ * @param imageRes Item icon. Pass [WhatsNewItem.NO_IMAGE_RES_ID] if you do not want to show any icon.
  */
+@Parcelize
 data class WhatsNewItem(
         var title: String,
-        var content: String
+        var content: String,
+        var imageRes: Int
 ) : Parcelable {
 
-    var imageRes: Int? = null
+    companion object {
 
-    constructor(title: String, content: String, @DrawableRes image: Int? = null) : this(title, content) {
-        imageRes = image
-    }
+        const val NO_IMAGE_RES_ID = 0
 
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readValue(Int::class.java.classLoader) as? Int)
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(title)
-        parcel.writeString(content)
-        parcel.writeValue(imageRes)
-    }
-
-    override fun describeContents(): Int = 0
-
-    companion object CREATOR : Parcelable.Creator<WhatsNewItem> {
-        override fun createFromParcel(parcel: Parcel): WhatsNewItem = WhatsNewItem(parcel)
-        override fun newArray(size: Int): Array<WhatsNewItem?> = arrayOfNulls(size)
     }
 
 }
