@@ -62,7 +62,7 @@ tasks.withType(Javadoc) {
 version = "0.1.2"
 group = "io.github.tonnyl"
 androidArtifact {
-    artifactId = "bintrayrelease"
+    artifactId = "whatsnew"
 }
 publish {
     userOrg = "tonnyl"
