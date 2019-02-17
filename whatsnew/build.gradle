@@ -1,18 +1,15 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.novoda.bintray-release'
-
-def configuration = rootProject.ext.configuration
-def libraries = rootProject.ext.libraries
+apply plugin: "guru.stefma.bintrayrelease"
 
 android {
-    compileSdkVersion configuration.compileSdkVersion
-    buildToolsVersion configuration.buildToolsVersion
+    compileSdkVersion versions.compile_sdk_version
+    buildToolsVersion versions.build_tools_version
 
     defaultConfig {
-        minSdkVersion configuration.libMinSdkVersion
-        targetSdkVersion configuration.targetSdkVersion
+        minSdkVersion versions.library_min_sdk_version
+        targetSdkVersion versions.target_sdk_version
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,15 +32,21 @@ android {
 
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:${libraries.androidxAppcompatVersion}"
-    implementation "androidx.recyclerview:recyclerview:${libraries.androidxRecyclerViewVersion}"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    androidTestImplementation "androidx.test.ext:junit:${libraries.junitVersion}"
-    androidTestImplementation "androidx.test:runner:${libraries.androidTestRunnerRulesVersion}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${libraries.espressoVersion}"
-    androidTestImplementation "androidx.test:rules:${libraries.androidTestRunnerRulesVersion}"
+    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
+    implementation "androidx.recyclerview:recyclerview:${versions.recycler_view}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+
+    androidTestImplementation "androidx.test:core:${versions.test_core}"
+    androidTestImplementation "androidx.test:runner:${versions.test_runner_rules}"
+    androidTestImplementation "androidx.test:rules:${versions.test_runner_rules}"
+    androidTestImplementation "androidx.test.ext:junit:${versions.ext_junit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
 }
 
 repositories {
@@ -55,14 +58,14 @@ tasks.withType(Javadoc) {
     enabled = false
 }
 
-// Type these code in a single line to upload the library to jfrog.
-// jcenter configuration for novoda's bintray-release
-// $ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
+// ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
+version = "0.1.2"
+group = "io.github.tonnyl"
+androidArtifact {
+    artifactId = "bintrayrelease"
+}
 publish {
-    userOrg = 'tonnyl'
-    groupId = 'io.github.tonnyl'
-    artifactId = 'whatsnew'
-    publishVersion = '0.1.2'
-    desc = 'WhatsNew automatically displays a short description of the new features when users update your app.'
-    website = 'https://github.com/TonnyL/WhatsNew'
+    userOrg = "tonnyl"
+    desc = "WhatsNew automatically displays a short description of the new features when users update your app."
+    website = "https://github.com/TonnyL/WhatsNew"
 }
