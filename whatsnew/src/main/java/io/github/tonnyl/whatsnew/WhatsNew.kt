@@ -1,6 +1,7 @@
 package io.github.tonnyl.whatsnew
 
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.*
@@ -30,6 +31,7 @@ class WhatsNew : DialogFragment() {
     var itemContentColor: Int? = null
     var iconColor: Int? = null
     var backgroundColorResource: Int = android.R.color.white
+    var backgroundColor: Int = -1
     var buttonBackground: Int = Color.parseColor("#000000")
     var buttonText: String = "Continue"
     var buttonTextColor: Int = Color.parseColor("#FFEB3B")
@@ -90,7 +92,11 @@ class WhatsNew : DialogFragment() {
 
         // Make the dialog fullscreen.
         val window = dialog.window ?: return
-        window.setBackgroundDrawableResource(backgroundColorResource)
+        if (backgroundColor != -1) {
+            window.setBackgroundDrawable(ColorDrawable(backgroundColor))
+        } else {
+            window.setBackgroundDrawableResource(backgroundColorResource)
+        }
         window.decorView.setPadding(0, 0, 0, 0)
         with(window.attributes) {
             gravity = Gravity.BOTTOM

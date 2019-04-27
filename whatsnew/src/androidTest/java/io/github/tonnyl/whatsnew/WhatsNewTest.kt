@@ -72,6 +72,16 @@ class WhatsNewTest {
     @Test
     @FlakyTest
     @Throws(Throwable::class)
+    fun testBackgroundColor() {
+        val whatsNew = WhatsNew.newInstance()
+        Assert.assertEquals(whatsNew.backgroundColor, -1)
+        whatsNew.backgroundColor = ContextCompat.getColor(activityRule.activity, R.color.colorAccent)
+        Assert.assertEquals(whatsNew.backgroundColor, Color.parseColor("#FF4081"))
+    }
+
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
     fun testField_button() {
         val whatsNew = WhatsNew.newInstance()
 

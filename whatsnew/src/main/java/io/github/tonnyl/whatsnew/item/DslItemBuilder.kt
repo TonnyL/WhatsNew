@@ -22,6 +22,7 @@ fun whatsNew(init: WhatNewsBuilder.() -> Unit): WhatsNew {
         this.itemTitleColor = list.itemTitleColor
         this.itemContentColor = list.itemContentColor
         this.backgroundColorResource = list.backgroundColorResource
+        this.backgroundColor = list.backgroundColor
         this.buttonBackground = list.buttonBackground
         this.buttonText = list.buttonText
         this.buttonTextColor = list.buttonTextColor
@@ -56,6 +57,7 @@ class WhatNewsBuilder : ArrayList<WhatsNewItem>() {
     var itemContentColor: Int? = null
     var iconColor: Int? = null
     var backgroundColorResource: Int = android.R.color.white
+    var backgroundColor: Int = -1
     var buttonBackground: Int = Color.parseColor("#000000")
     var buttonText: String = "Continue"
     var buttonTextColor: Int = Color.parseColor("#FFEB3B")
