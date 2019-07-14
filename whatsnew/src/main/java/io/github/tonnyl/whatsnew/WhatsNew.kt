@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.tonnyl.whatsnew.adapter.ItemsAdapter
+import io.github.tonnyl.whatsnew.interfaces.ViewFinishedListener
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import io.github.tonnyl.whatsnew.util.PresentationOption
 import kotlinx.android.synthetic.main.whatsnew_main.*
@@ -16,7 +17,18 @@ import kotlinx.android.synthetic.main.whatsnew_main.*
 /**
  * Created by lizhaotailang on 30/11/2017.
  */
+
+// Extension function that lets you know when the user is done viewing the WhatsNew dialog
+fun WhatsNew.whenViewed(listener : ViewFinishedListener): WhatsNew {
+        this.clickListener = listener
+    return this
+}
+
+
 class WhatsNew : DialogFragment() {
+
+
+    internal lateinit var clickListener: ViewFinishedListener
 
     val mItems: ArrayList<WhatsNewItem> by lazy {
         val args = requireNotNull(arguments) {
@@ -59,6 +71,7 @@ class WhatsNew : DialogFragment() {
 
             return WhatsNew().apply { arguments = bundle }
         }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.whatsnew_main, container, false)
@@ -87,7 +100,14 @@ class WhatsNew : DialogFragment() {
             text = buttonText
             setTextColor(buttonTextColor)
             setBackgroundColor(buttonBackground)
-            setOnClickListener { dismiss() }
+            setOnClickListener {
+                dismiss()
+
+                // Check if listener is initialized
+                if (::clickListener.isInitialized) {
+                    clickListener.onViewFinished()
+                }
+            }
         }
 
         // Make the dialog fullscreen.
@@ -107,6 +127,7 @@ class WhatsNew : DialogFragment() {
         // Animate.
         window.setWindowAnimations(R.style.WhatsNewDialogAnimation)
     }
+
 
     fun presentAutomatically(activity: AppCompatActivity) {
 
