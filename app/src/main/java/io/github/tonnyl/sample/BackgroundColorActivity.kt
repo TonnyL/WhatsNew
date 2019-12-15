@@ -42,24 +42,24 @@ class BackgroundColorActivity : AppCompatActivity() {
         whatsNew.presentAutomatically(this)
 
 
-//        io.github.tonnyl.whatsnew.item.whatsNew {
+//        io.github.tonnyl.whatsnew.whatsnew_item.whatsNew {
 //            presentationOption = PresentationOption.DEBUG
-//            item {
+//            whatsnew_item {
 //                title = "Yo"
 //                content = "Ye"
 //                imageRes = R.drawable.ic_heart
 //            }
-//            item {
+//            whatsnew_item {
 //                title = "Yo2"
 //                content = "Ye2"
 //                imageRes = R.drawable.ic_thumb_up
 //            }
-//            item {
+//            whatsnew_item {
 //                title = "Yo3"
 //                content = "Ye3"
 //                imageRes = R.drawable.ic_satisfied_face
 //            }
-//            item {
+//            whatsnew_item {
 //                title = "Yo4"
 //                content = "Ye4"
 //            }

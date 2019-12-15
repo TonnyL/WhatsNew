@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-android-extensions")
 }
 
 android {
@@ -15,6 +14,7 @@ android {
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         getByName("release") {
             postprocessing {
@@ -25,6 +25,10 @@ android {
                 proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             }
         }
+    }
+
+    viewBinding {
+        isEnabled = true
     }
 }
 
