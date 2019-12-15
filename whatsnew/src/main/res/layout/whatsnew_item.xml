@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="16dp"
+    android:id="@+id/root"
     android:paddingTop="16dp">
 
     <TextView

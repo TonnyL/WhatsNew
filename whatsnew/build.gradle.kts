@@ -27,6 +27,10 @@ android {
         }
     }
 
+    viewBinding {
+        isEnabled = true
+    }
+
     lintOptions {
         isAbortOnError = false
     }

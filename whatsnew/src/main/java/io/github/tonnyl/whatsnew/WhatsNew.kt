@@ -8,10 +8,10 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.github.tonnyl.whatsnew.adapter.ItemsAdapter
+import io.github.tonnyl.whatsnew.adapter.WhatsNewItemAdapter
+import io.github.tonnyl.whatsnew.databinding.WhatsnewMainBinding
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import io.github.tonnyl.whatsnew.util.PresentationOption
-import kotlinx.android.synthetic.main.whatsnew_main.*
 
 /**
  * Created by lizhaotailang on 30/11/2017.
@@ -19,10 +19,7 @@ import kotlinx.android.synthetic.main.whatsnew_main.*
 class WhatsNew : DialogFragment() {
 
     val mItems: ArrayList<WhatsNewItem> by lazy {
-        val args = requireNotNull(arguments) {
-            "arguments must not be null"
-        }
-        args.getParcelableArrayList<WhatsNewItem>(ARGUMENT)
+        requireArguments().getParcelableArrayList<WhatsNewItem>(ARGUMENT) as ArrayList<WhatsNewItem>
     }
     var presentationOption: PresentationOption = PresentationOption.IF_NEEDED
     var titleText: CharSequence = "What's New"
@@ -35,6 +32,10 @@ class WhatsNew : DialogFragment() {
     var buttonBackground: Int = Color.parseColor("#000000")
     var buttonText: String = "Continue"
     var buttonTextColor: Int = Color.parseColor("#FFEB3B")
+
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        WhatsnewMainBinding.inflate(layoutInflater)
+    }
 
     companion object {
 
@@ -61,21 +62,23 @@ class WhatsNew : DialogFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.whatsnew_main, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // The title text view.
-        with(titleTextView) {
+        with(binding.titleTextView) {
             text = titleText
             setTextColor(titleColor)
         }
 
         // The recycler view.
-        with(itemsRecyclerView) {
+        with(binding.itemsRecyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = ItemsAdapter(mItems, requireContext()).apply {
+            adapter = WhatsNewItemAdapter(mItems, requireContext()).apply {
                 this@WhatsNew.itemContentColor?.let { this@apply.contentColor = it }
                 this@WhatsNew.itemTitleColor?.let { this@apply.titleColor = it }
                 this@WhatsNew.iconColor?.let { this@apply.iconColor = it }
@@ -83,7 +86,7 @@ class WhatsNew : DialogFragment() {
         }
 
         // The button.
-        with(button) {
+        with(binding.button) {
             text = buttonText
             setTextColor(buttonTextColor)
             setBackgroundColor(buttonBackground)
@@ -91,7 +94,7 @@ class WhatsNew : DialogFragment() {
         }
 
         // Make the dialog fullscreen.
-        val window = dialog.window ?: return
+        val window = dialog?.window ?: return
         if (backgroundColor != -1) {
             window.setBackgroundDrawable(ColorDrawable(backgroundColor))
         } else {
@@ -120,7 +123,7 @@ class WhatsNew : DialogFragment() {
             else -> {
                 // Obtain the last version code from sp.
                 val lastVersionCode = PreferenceManager.getDefaultSharedPreferences(activity)
-                        .getInt(LAST_VERSION_CODE, 0)
+                    .getInt(LAST_VERSION_CODE, 0)
                 var nowVersionCode: Int
 
                 var lastFirstNumOfVersionName = 0
@@ -131,40 +134,40 @@ class WhatsNew : DialogFragment() {
                 try {
                     var tmp: String
                     activity.packageManager
-                            .getPackageInfo(activity.packageName, 0)
-                            .let {
-                                nowVersionCode = it.versionCode
-                                tmp = it.versionName
-                            }
+                        .getPackageInfo(activity.packageName, 0)
+                        .let {
+                            nowVersionCode = it.versionCode
+                            tmp = it.versionName
+                        }
 
                     // Obtain the first two numbers of current version name.
                     tmp.split("\\.".toRegex())
-                            .filter { !it.isEmpty() && !it.isBlank() }
-                            .apply {
-                                if (size >= 1) {
-                                    nowFirstNumOfVersionName = this[0].toInt()
-                                }
-
-                                if (size >= 2) {
-                                    nowSecondNumOfVersionName = this[1].toInt()
-                                }
+                        .filter { it.isNotEmpty() && it.isNotBlank() }
+                        .apply {
+                            if (size >= 1) {
+                                nowFirstNumOfVersionName = this[0].toInt()
                             }
+
+                            if (size >= 2) {
+                                nowSecondNumOfVersionName = this[1].toInt()
+                            }
+                        }
 
                     // Obtain the first two numbers of last version name.
                     val versionName = PreferenceManager.getDefaultSharedPreferences(activity)
-                            .getString(LAST_VERSION_NAME, "") ?: return
+                        .getString(LAST_VERSION_NAME, "") ?: return
 
                     versionName.split("\\.".toRegex())
-                            .filter { !it.isEmpty() && !it.isBlank() }
-                            .apply {
-                                if (size >= 1) {
-                                    lastFirstNumOfVersionName = this[0].toInt()
-                                }
-
-                                if (size >= 2) {
-                                    lastSecondNumOfVersionName = this[1].toInt()
-                                }
+                        .filter { it.isNotEmpty() && it.isNotBlank() }
+                        .apply {
+                            if (size >= 1) {
+                                lastFirstNumOfVersionName = this[0].toInt()
                             }
+
+                            if (size >= 2) {
+                                lastSecondNumOfVersionName = this[1].toInt()
+                            }
+                        }
 
                     if (presentationOption == PresentationOption.ALWAYS) {
                         if (nowVersionCode >= 0 && nowVersionCode > lastVersionCode) {
@@ -173,23 +176,24 @@ class WhatsNew : DialogFragment() {
                             show(activity.supportFragmentManager, TAG)
                             // Save the latest version code to sp.
                             PreferenceManager.getDefaultSharedPreferences(activity)
-                                    .edit()
-                                    .putInt(LAST_VERSION_CODE, nowVersionCode)
-                                    .apply()
+                                .edit()
+                                .putInt(LAST_VERSION_CODE, nowVersionCode)
+                                .apply()
                         }
                     } else { // presentationOption == PresentationOption.IF_NEEDED
                         if (((nowFirstNumOfVersionName >= 0 && nowFirstNumOfVersionName > lastFirstNumOfVersionName)
-                                        || (nowSecondNumOfVersionName >= 0 && nowSecondNumOfVersionName > lastSecondNumOfVersionName))
-                                && (nowVersionCode >= 0 && lastVersionCode >= 0 && nowVersionCode > lastVersionCode)) {
+                                    || (nowSecondNumOfVersionName >= 0 && nowSecondNumOfVersionName > lastSecondNumOfVersionName))
+                            && (nowVersionCode >= 0 && lastVersionCode >= 0 && nowVersionCode > lastVersionCode)
+                        ) {
 
                             // Show the dialog.
                             show(activity.supportFragmentManager, TAG)
                             // Save the latest version name to sp.
                             PreferenceManager.getDefaultSharedPreferences(activity)
-                                    .edit()
-                                    .putInt(LAST_VERSION_CODE, nowVersionCode)
-                                    .putString(LAST_VERSION_NAME, "$nowFirstNumOfVersionName.$nowSecondNumOfVersionName")
-                                    .apply()
+                                .edit()
+                                .putInt(LAST_VERSION_CODE, nowVersionCode)
+                                .putString(LAST_VERSION_NAME, "$nowFirstNumOfVersionName.$nowSecondNumOfVersionName")
+                                .apply()
                         }
                     }
                 } catch (e: Exception) {
