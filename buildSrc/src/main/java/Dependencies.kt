@@ -5,7 +5,7 @@ object Versions {
     val appMinSdk = 23
     val libMinSdk = 16
 
-    val androidGradle = "3.6.0-beta05"
+    val androidGradle = "4.0.1"
     val kotlin = "1.3.50"
     val bintrayRelease = "1.1.2"
     val appcompat = "1.1.0"
