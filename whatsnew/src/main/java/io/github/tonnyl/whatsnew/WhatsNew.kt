@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.tonnyl.whatsnew.adapter.WhatsNewItemAdapter
 import io.github.tonnyl.whatsnew.databinding.WhatsnewMainBinding
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
+import io.github.tonnyl.whatsnew.util.ItemLayoutOption
 import io.github.tonnyl.whatsnew.util.PresentationOption
 
 /**
@@ -22,8 +23,10 @@ class WhatsNew : DialogFragment() {
         requireArguments().getParcelableArrayList<WhatsNewItem>(ARGUMENT) as ArrayList<WhatsNewItem>
     }
     var presentationOption: PresentationOption = PresentationOption.IF_NEEDED
+    var itemLayoutOption: ItemLayoutOption = ItemLayoutOption.NORMAL
     var titleText: CharSequence = "What's New"
     var titleColor: Int = Color.parseColor("#000000")
+    var titleSize: Float = 18.0f
     var itemTitleColor: Int? = null
     var itemContentColor: Int? = null
     var iconColor: Int? = null
@@ -72,13 +75,14 @@ class WhatsNew : DialogFragment() {
         // The title text view.
         with(binding.titleTextView) {
             text = titleText
+            textSize = titleSize
             setTextColor(titleColor)
         }
 
         // The recycler view.
         with(binding.itemsRecyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = WhatsNewItemAdapter(mItems, requireContext()).apply {
+            adapter = WhatsNewItemAdapter(mItems, requireContext(),itemLayoutOption).apply {
                 this@WhatsNew.itemContentColor?.let { this@apply.contentColor = it }
                 this@WhatsNew.itemTitleColor?.let { this@apply.titleColor = it }
                 this@WhatsNew.iconColor?.let { this@apply.iconColor = it }

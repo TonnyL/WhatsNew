@@ -5,18 +5,24 @@ import android.graphics.Color
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
+import io.github.tonnyl.whatsnew.databinding.WhatsnewItemIosBinding
 import io.github.tonnyl.whatsnew.databinding.WhatsnewItemBinding
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
+import io.github.tonnyl.whatsnew.util.ItemLayoutOption
+
 
 /**
  * Created by lizhaotailang on 30/11/2017.
  */
 class WhatsNewItemAdapter(
     private val mData: List<WhatsNewItem>,
-    private val mContext: Context
+    private val mContext: Context,
+    private val mItemLayoutOption: ItemLayoutOption
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var titleColor: Int = Color.BLACK
@@ -25,31 +31,65 @@ class WhatsNewItemAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position <= mData.size) {
-            with((holder as ItemViewHolder).binding) {
-                if (mData[position].imageRes != 0) {
-                    AppCompatResources.getDrawable(mContext, mData[position].imageRes)?.let { drawable ->
-                        DrawableCompat.setTint(drawable, iconColor)
+            when (mItemLayoutOption){
+                ItemLayoutOption.NORMAL -> {
+                    with((holder as ItemViewHolder).binding) {
+                        if (mData[position].imageRes != 0) {
+                            AppCompatResources.getDrawable(mContext, mData[position].imageRes)?.let { drawable ->
+                                DrawableCompat.setTint(drawable, iconColor)
+                                itemTitleTextView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+                            }
+                        }
+                        itemTitleTextView.gravity = Gravity.CENTER_VERTICAL
+                        itemTitleTextView.compoundDrawablePadding = 16
+                        itemTitleTextView.text = mData[position].title
+                        itemTitleTextView.setTextColor(titleColor)
 
-                        itemTitleTextView.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+                        itemContentTextView.text = mData[position].content
+                        itemContentTextView.setTextColor(contentColor)
                     }
                 }
-                itemTitleTextView.gravity = Gravity.CENTER_VERTICAL
-                itemTitleTextView.compoundDrawablePadding = 16
-                itemTitleTextView.text = mData[position].title
-                itemTitleTextView.setTextColor(titleColor)
+                ItemLayoutOption.LIKE_IOS -> {
+                    with((holder as ItemViewHolder2).binding) {
+                        if (mData[position].imageRes != 0) {
+                            AppCompatResources.getDrawable(mContext, mData[position].imageRes)?.let { drawable ->
+                                itemImageView.setImageDrawable(drawable)
+                                val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT as Int, RelativeLayout.LayoutParams.WRAP_CONTENT as Int)
 
-                itemContentTextView.text = mData[position].content
-                itemContentTextView.setTextColor(contentColor)
+                                params.addRule(RelativeLayout.CENTER_VERTICAL)
+
+                                itemImageView.layoutParams = params
+                                DrawableCompat.setTint(drawable, iconColor)
+                            }
+                        }
+                        itemTitleTextView.gravity = Gravity.CENTER_VERTICAL
+                        itemTitleTextView.compoundDrawablePadding = 16
+                        itemTitleTextView.text = mData[position].title
+                        itemTitleTextView.setTextColor(titleColor)
+
+                        itemContentTextView.text = mData[position].content
+                        itemContentTextView.setTextColor(contentColor)
+                    }
+                }
             }
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ItemViewHolder(WhatsnewItemBinding.inflate(LayoutInflater.from(mContext), parent, false))
+        when (mItemLayoutOption){
+            ItemLayoutOption.NORMAL -> {
+                return ItemViewHolder(WhatsnewItemBinding.inflate(LayoutInflater.from(mContext), parent, false))
+            }
+            ItemLayoutOption.LIKE_IOS -> {
+                return ItemViewHolder2(WhatsnewItemIosBinding.inflate(LayoutInflater.from(mContext), parent, false))
+            }
+        }
     }
 
     override fun getItemCount(): Int = mData.size
 
     class ItemViewHolder(val binding: WhatsnewItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ItemViewHolder2(val binding: WhatsnewItemIosBinding) : RecyclerView.ViewHolder(binding.root)
 
 }

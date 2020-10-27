@@ -10,6 +10,7 @@ import androidx.test.filters.FlakyTest
 import androidx.test.rule.ActivityTestRule
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import io.github.tonnyl.whatsnew.test.R
+import io.github.tonnyl.whatsnew.util.ItemLayoutOption
 import io.github.tonnyl.whatsnew.util.PresentationOption
 import org.hamcrest.core.Is.`is`
 import org.junit.Assert
@@ -52,6 +53,18 @@ class WhatsNewTest {
 
         whatsNew.presentationOption = PresentationOption.NEVER
         Assert.assertThat(whatsNew.presentationOption, `is`(PresentationOption.NEVER))
+    }
+    @Test
+    @FlakyTest
+    @Throws(Throwable::class)
+    fun testField_itemLayoutOption() {
+        //By Default needs to be Normal layout
+        val whatsNew = WhatsNew.newInstance()
+
+        Assert.assertThat(whatsNew.itemLayoutOption, `is`(ItemLayoutOption.NORMAL))
+
+        whatsNew.itemLayoutOption = ItemLayoutOption.LIKE_IOS
+        Assert.assertThat(whatsNew.itemLayoutOption, `is`(ItemLayoutOption.LIKE_IOS))
     }
 
     @Test
@@ -168,7 +181,7 @@ class WhatsNewTest {
             e.printStackTrace()
         }
 
-        Assert.assertTrue(whatsNew.dialog.isShowing)
+        Assert.assertTrue(whatsNew.dialog!!.isShowing)
 
         // Click the button.
         onView(withId(R.id.button)).perform(ViewActions.click())
@@ -207,7 +220,7 @@ class WhatsNewTest {
         }
 
         Assert.assertNotNull(wn2.dialog)
-        Assert.assertTrue(wn2.dialog.isShowing)
+        Assert.assertTrue(wn2.dialog!!.isShowing)
     }
 
 }
