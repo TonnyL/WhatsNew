@@ -44,7 +44,6 @@ class WhatsNewItemAdapter(
                         itemTitleTextView.compoundDrawablePadding = 16
                         itemTitleTextView.text = mData[position].title
                         itemTitleTextView.setTextColor(titleColor)
-
                         itemContentTextView.text = mData[position].content
                         itemContentTextView.setTextColor(contentColor)
                     }
@@ -55,9 +54,7 @@ class WhatsNewItemAdapter(
                             AppCompatResources.getDrawable(mContext, mData[position].imageRes)?.let { drawable ->
                                 itemImageView.setImageDrawable(drawable)
                                 val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT as Int, RelativeLayout.LayoutParams.WRAP_CONTENT as Int)
-
                                 params.addRule(RelativeLayout.CENTER_VERTICAL)
-
                                 itemImageView.layoutParams = params
                                 DrawableCompat.setTint(drawable, iconColor)
                             }
@@ -66,7 +63,6 @@ class WhatsNewItemAdapter(
                         itemTitleTextView.compoundDrawablePadding = 16
                         itemTitleTextView.text = mData[position].title
                         itemTitleTextView.setTextColor(titleColor)
-
                         itemContentTextView.text = mData[position].content
                         itemContentTextView.setTextColor(contentColor)
                     }
@@ -77,12 +73,12 @@ class WhatsNewItemAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (mItemLayoutOption){
+        return when (mItemLayoutOption){
             ItemLayoutOption.NORMAL -> {
-                return ItemViewHolder(WhatsnewItemBinding.inflate(LayoutInflater.from(mContext), parent, false))
+                ItemViewHolder(WhatsnewItemBinding.inflate(LayoutInflater.from(mContext), parent, false))
             }
             ItemLayoutOption.LIKE_IOS -> {
-                return ItemViewHolder2(WhatsnewItemIosBinding.inflate(LayoutInflater.from(mContext), parent, false))
+                ItemViewHolder2(WhatsnewItemIosBinding.inflate(LayoutInflater.from(mContext), parent, false))
             }
         }
     }
