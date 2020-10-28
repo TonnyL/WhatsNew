@@ -1,11 +1,11 @@
 package io.github.tonnyl.whatsnew.util
 
 /**
- * Created by lizhaotailang on 30/11/2017.
+ * Created by finalpets on 27/20/2020.
  */
 enum class ItemLayoutOption {
 
-    // Ignore the change of version name and version code, present always.
+    // Default Layout
     NORMAL,
 
     // Whats New Layout like iOS Apps (Reminders, Notes, Maps, Photos, Music)

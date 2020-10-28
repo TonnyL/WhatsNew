@@ -82,7 +82,7 @@ class WhatsNew : DialogFragment() {
         // The recycler view.
         with(binding.itemsRecyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = WhatsNewItemAdapter(mItems, requireContext(),itemLayoutOption).apply {
+            adapter = WhatsNewItemAdapter(mItems, requireContext(), itemLayoutOption).apply {
                 this@WhatsNew.itemContentColor?.let { this@apply.contentColor = it }
                 this@WhatsNew.itemTitleColor?.let { this@apply.titleColor = it }
                 this@WhatsNew.iconColor?.let { this@apply.iconColor = it }
