@@ -2,6 +2,7 @@ package io.github.tonnyl.whatsnew.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.text.method.LinkMovementMethod
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +10,8 @@ import android.widget.RelativeLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
-import io.github.tonnyl.whatsnew.databinding.WhatsnewItemIosBinding
 import io.github.tonnyl.whatsnew.databinding.WhatsnewItemBinding
+import io.github.tonnyl.whatsnew.databinding.WhatsnewItemIosBinding
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import io.github.tonnyl.whatsnew.util.ItemLayoutOption
 
@@ -45,6 +46,7 @@ class WhatsNewItemAdapter(
                         itemTitleTextView.text = mData[position].title
                         itemTitleTextView.setTextColor(titleColor)
                         itemContentTextView.text = mData[position].content
+                        itemContentTextView.movementMethod = LinkMovementMethod.getInstance()
                         itemContentTextView.setTextColor(contentColor)
                     }
                 }
@@ -64,6 +66,7 @@ class WhatsNewItemAdapter(
                         itemTitleTextView.text = mData[position].title
                         itemTitleTextView.setTextColor(titleColor)
                         itemContentTextView.text = mData[position].content
+                        itemContentTextView.movementMethod = LinkMovementMethod.getInstance()
                         itemContentTextView.setTextColor(contentColor)
                     }
                 }
