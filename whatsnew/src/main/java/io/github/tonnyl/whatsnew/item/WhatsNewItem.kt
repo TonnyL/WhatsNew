@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class WhatsNewItem(
         var title: String,
-        var content: String,
+        var content: CharSequence,
         var imageRes: Int
 ) : Parcelable {
 

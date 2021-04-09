@@ -1,13 +1,11 @@
 package io.github.tonnyl.sample
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import io.github.tonnyl.sample.databinding.ActivityMainBinding
 import io.github.tonnyl.whatsnew.WhatsNew
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
-import io.github.tonnyl.whatsnew.util.ItemLayoutOption
 import io.github.tonnyl.whatsnew.util.PresentationOption
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +23,7 @@ class MainActivity : AppCompatActivity() {
                     WhatsNewItem("Nice Icons", "Completely customize colors, texts and icons.", R.drawable.ic_heart),
                     WhatsNewItem("Such Easy", "Setting this up only takes 2 lines of code, impressive you say?", R.drawable.ic_thumb_up),
                     WhatsNewItem("Very Sleep", "It helps you get more sleep by writing less code.", R.drawable.ic_satisfied_face),
-                    WhatsNewItem("Text Only", "No icons? Just go with plain text.", WhatsNewItem.NO_IMAGE_RES_ID)
+                    WhatsNewItem("Text Only", HtmlCompat.fromHtml("No icons? Just go with plain text <a href=\"https://github.com/TonnyL/WhatsNew\">or HTML</a>.", HtmlCompat.FROM_HTML_MODE_COMPACT), WhatsNewItem.NO_IMAGE_RES_ID)
             ).apply {
                 presentationOption = PresentationOption.DEBUG
             }
