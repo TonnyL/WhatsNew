@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.github.tonnyl.sample.databinding.ActivityMainBinding;
 import io.github.tonnyl.whatsnew.WhatsNew;
 import io.github.tonnyl.whatsnew.item.WhatsNewItem;
 
@@ -19,9 +20,12 @@ public class AnotherActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.activity_main);
 
-        findViewById(R.id.textView).setOnClickListener(new View.OnClickListener() {
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
+
+        binding.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WhatsNew.newInstance(

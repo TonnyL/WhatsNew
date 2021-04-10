@@ -1,7 +1,7 @@
 package io.github.tonnyl.whatsnew.item
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * @param title Item title.

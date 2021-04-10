@@ -1,14 +1,12 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
 
         classpath(Deps.GradlePlugin.android)
         classpath(Deps.GradlePlugin.kotlin)
-        classpath(Deps.GradlePlugin.android)
-        classpath(Deps.GradlePlugin.bintrayRelease)
 
     }
 }
@@ -16,7 +14,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 

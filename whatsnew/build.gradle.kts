@@ -1,8 +1,7 @@
 plugins {
     id("com.android.library")
-    id("kotlin-android")
-    id("kotlin-android-extensions")
-    id("guru.stefma.bintrayrelease")
+    kotlin("android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -27,18 +26,14 @@ android {
         }
     }
 
-    viewBinding {
-        isEnabled = true
+    buildFeatures {
+        viewBinding = true
     }
 
     lintOptions {
         isAbortOnError = false
     }
 
-}
-
-androidExtensions {
-    isExperimental = true
 }
 
 dependencies {
@@ -61,16 +56,4 @@ repositories {
 // Disable creating javadocs
 task<Javadoc>("withType") {
     isEnabled = false
-}
-
-// ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
-version = "0.1.2"
-group = "io.github.tonnyl"
-androidArtifact {
-    artifactId = "whatsnew"
-}
-publish {
-    userOrg = "tonnyl"
-    desc = "WhatsNew automatically displays a short description of the new features when users update your app."
-    website = "https://github.com/TonnyL/WhatsNew"
 }

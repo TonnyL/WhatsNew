@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import io.github.tonnyl.sample.databinding.BackgroundColorActivityBinding
 import io.github.tonnyl.whatsnew.WhatsNew
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
 import io.github.tonnyl.whatsnew.util.PresentationOption
@@ -15,9 +16,14 @@ import io.github.tonnyl.whatsnew.util.PresentationOption
 
 class BackgroundColorActivity : AppCompatActivity() {
 
+    private lateinit var binding: BackgroundColorActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.background_color_activity)
+
+        binding = BackgroundColorActivityBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         val whatsNew = WhatsNew.newInstance(
                 WhatsNewItem("Nice Icons", "Completely customize colors, texts and icons.", R.drawable.ic_heart),
