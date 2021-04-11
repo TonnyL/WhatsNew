@@ -1,5 +1,5 @@
 # WhatsNew
-[![Build Status](https://travis-ci.org/TonnyL/WhatsNew.svg?branch=master)](https://travis-ci.org/TonnyL/WhatsNew)
+[![build](https://github.com/TonnyL/WhatsNew/workflows/build/badge.svg)](https://github.com/TonnyL/WhatsNew/actions?query=workflow%3Abuild)
 ![platform](https://img.shields.io/badge/platform-android-lightgrey.svg)
 [![Download](https://api.bintray.com/packages/tonnyl/maven/whatsnew/images/download.svg)](https://bintray.com/tonnyl/maven/whatsnew/_latestVersion)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
