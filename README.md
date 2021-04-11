@@ -1,7 +1,7 @@
 # WhatsNew
 [![build](https://github.com/TonnyL/WhatsNew/workflows/build/badge.svg)](https://github.com/TonnyL/WhatsNew/actions?query=workflow%3Abuild)
 ![platform](https://img.shields.io/badge/platform-android-lightgrey.svg)
-[![Download](https://api.bintray.com/packages/tonnyl/maven/whatsnew/images/download.svg)](https://bintray.com/tonnyl/maven/whatsnew/_latestVersion)
+[![maven central](https://img.shields.io/maven-central/v/io.github.tonnyl/whatsnew)](https://repo1.maven.org/maven2/io/github/tonnyl/whatsnew/)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 <p align="center"><img src ="./art/screenshot.png" width="400px"/></p>
@@ -10,22 +10,21 @@
 
 ## Download
 ### Gradle
-Add the code to your **module**'s build.gradle file:
+Add code below to your **project** level `build.gradle` file:
+```
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+```
+
+Add code below to your **module** level `build.gradle` file:
 
 ```gradle
 dependencies {
     implementation 'io.github.tonnyl:whatsnew:x.y.z'
 }
-```
-
-### Maven
-```xml
-<dependency>
-  <groupId>io.github.tonnyl</groupId>
-  <artifactId>whatsnew</artifactId>
-  <version>x.y.z</version>
-  <type>pom</type>
-</dependency>
 ```
 
 ## Usage
