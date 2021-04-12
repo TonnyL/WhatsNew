@@ -7,8 +7,10 @@ object Versions {
 
     const val androidGradle = "4.1.3"
     const val kotlin = "1.4.32"
+    const val dokka = "1.4.30"
     const val appcompat = "1.3.0-rc01"
     const val recyclerView = "1.2.0"
+    const val mavenPublish = "0.14.2"
 
     const val androidTestCore = "1.4.0-alpha05"
     const val androidTestRunner = "1.4.0-alpha05"
@@ -24,6 +26,8 @@ object Deps {
 
         const val android = "com.android.tools.build:gradle:${Versions.androidGradle}"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        const val dokka = "org.jetbrains.dokka:dokka-gradle-plugin:${Versions.dokka}"
+        const val mavenPublish = "com.vanniktech:gradle-maven-publish-plugin:${Versions.mavenPublish}"
 
     }
 
